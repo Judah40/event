@@ -8,5 +8,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "app/(app)/tabs/patient/_layout.js", "app/(app)/tabs/patient/index.js", "app/(app)/two.js", "app/_layout.js", "useContext.js"  ]
 }
