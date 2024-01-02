@@ -11,13 +11,11 @@ import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
 import { useAuth } from "../../../context";
 const index = () => {
-
-
-    //context
-    const {login, user, logout}=useAuth()
+  //context
+  const { login, user, logout } = useAuth();
   //states
   const [viewImage, setViewImage] = useState(false);
   const [image, setImage] = useState<any>(null);
@@ -112,17 +110,15 @@ const index = () => {
 
       {/**sign out  */}
       <View className="w-full h-40  items-center justify-center">
-
-      <TouchableOpacity
-      onPress={()=>{
-logout()
-      }}
-      className="items-center justify-center space-x-2 border border-white rounded p-4 flex-row">
-      <FontAwesome name="sign-out" size={24} color="red" />
-        <Text>
-          Sign Out
-        </Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            logout();
+          }}
+          className="items-center justify-center space-x-2 border border-white rounded p-4 flex-row"
+        >
+          <FontAwesome name="sign-out" size={24} color="red" />
+          <Text>Sign Out</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
