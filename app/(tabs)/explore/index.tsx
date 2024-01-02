@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { EvilIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -17,7 +18,15 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Link } from "expo-router";
+
+import { useAuth, user } from "../../../context";
+import { getEvents } from "../../apiCalls/dataFetching";
+
 const index = () => {
+
+
+  //auth
+  const {login, logout, user}=useAuth()
   const [bookmark, setBookmark] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -85,6 +94,14 @@ const index = () => {
       color: "purple",
     },
   ];
+
+
+
+  useEffect(()=>{
+    getEvents().then((value)=>{
+      console.log(value.data[1])
+    })
+  }, [])
   return (
     <View className="flex-1 bg-gray-50">
       {/*header*/}
@@ -248,8 +265,8 @@ const index = () => {
           </GestureScrollView>
         </View>
 
-        <View className="w-full h-40 items-center justify-center">
-          <View className="w-11/12 bg-teal-200 rounded-lg border-[0.2px] border-gray-400 flex-row shadow-lg items-center justify-center">
+        <View className="w-full h-40 items-center justify-center ">
+          <View className="w-11/12 h-32 bg-teal-200 rounded-lg border-[0.2px] border-gray-400 flex-row shadow-lg items-center justify-center ">
             {/**promo */}
             <View className="space-y-2">
               <Text className="text-[18px] font-medium">
@@ -267,7 +284,7 @@ const index = () => {
             <View>
               <Image
                 source={require("../../../assets/images/gift.png")}
-                className="w-52 h-40 "
+                className="w-40 h-20 "
               />
             </View>
           </View>
@@ -288,6 +305,13 @@ const index = () => {
               </Link>
             </View>
           </View>
+
+
+          <TouchableOpacity onPress={()=>{
+            logout()
+          }}>
+            <Text className="text-xl">Logout</Text>
+          </TouchableOpacity>
           <GestureScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View className="space-x-4 flex-row mt-4">
               {card.map((value, index) => (
