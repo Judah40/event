@@ -1,5 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
+import { Link, Slot, Tabs } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 import React, { useEffect } from "react";
 import Colors from "../../constants/Colors";
@@ -7,6 +7,7 @@ import { BottomNavigation } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { usePathname } from "expo-router";
 import { FontAwesome5 } from '@expo/vector-icons';
+import {Platform} from "react-native"
 /**
 
 
@@ -26,6 +27,8 @@ export default function TabLayout() {
   useEffect(() => {
     console.log(path);
   }, []);
+
+
   return (
     <Tabs
       screenOptions={{

@@ -180,7 +180,12 @@ const signin = () => {
               </View>
               {/**Sign in button */}
               <View className="">
-                <TouchableOpacity className="w-[271px] h-[58px] bg-[#5669FF] rounded-[15px] items-center">
+                <TouchableOpacity
+                onPress={()=>{
+                  const user:user={password:"hello", email:"hello",userToken:"hello", platform:"web"}
+                  login(user)
+                }}
+                className="w-[271px] h-[58px] bg-[#5669FF] rounded-[15px] items-center">
                   <View className="w-11/12 justify-end flex-row h-full items-center space-x-16">
                     <Text className="text-white font-semibold">SIGN IN</Text>
                     <View className="w-[30px] h-[30px] rounded-full bg-[#3D56F0] items-center justify-center">
@@ -285,7 +290,7 @@ const signin = () => {
         <View className="">
           <TouchableOpacity
           onPress={()=>{
-            const user:user={password:"hello", email:"hello",userToken:"hello"}
+            const user:user={password:"hello", email:"hello",userToken:"hello", platform:""}
             login(user)
           }}
           className="w-[271px] h-[58px] bg-[#5669FF] rounded-[15px] items-center">
