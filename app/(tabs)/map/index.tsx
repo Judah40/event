@@ -7,7 +7,7 @@ const index = () => {
   return (
     <View className="flex-1">
       <MapView
-        style={{ flex: 1 }}
+        style={{ flex: 1 }}                    
         initialRegion={{
           latitude: 8.4606, // Latitude for Sierra Leone
           longitude: -11.7799, // Longitude for Sierra Leone

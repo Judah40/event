@@ -90,7 +90,7 @@ const index = () => {
       {/*header*/}
       <View className="w-full h-[179px] bg-[#4A43EC] rounded-b-3xl  items-center justify-center pt-4">
         {/**section 1 */}
-        <View className="flex-row    items-center w-full justify-end  pr-4">
+        <View className="flex-row items-center w-full justify-end  pr-4">
           <View className=" ">
             <DropDownPicker
               open={open}
