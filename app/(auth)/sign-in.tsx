@@ -99,7 +99,7 @@ const signin = () => {
         <View className="">
           <TouchableOpacity
           onPress={()=>{
-            const user:user={password:"hello", email:"hello",userToken:"hello"}
+            const user:user={password:"hello", email:"hello",userToken:"hello", platform:""}
             login(user)
           }}
           className="w-[271px] h-[58px] bg-[#5669FF] rounded-[15px] items-center">

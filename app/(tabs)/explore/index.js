@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { EvilIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -17,7 +18,15 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Link } from "expo-router";
+
+import { useAuth, user } from "../../../context";
+import { getEvents } from "../../apiCalls/dataFetching";
+
 const index = () => {
+
+
+  //auth
+  const {login, logout, user}=useAuth()
   const [bookmark, setBookmark] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -85,6 +94,16 @@ const index = () => {
       color: "purple",
     },
   ];
+
+
+
+  useEffect(()=>{
+    getEvents().then((value) => {
+      console.log(value.data[1])
+    })
+  }, [])
+
+
   return (
     <View className="flex-1 bg-gray-50">
       {/*header*/}
@@ -124,7 +143,7 @@ const index = () => {
           </View>
 
           {/**call to action */}
-          <View className="flex-row space-x-2">
+          <View className="">
             {/**search */}
             <Link href={"/(tabs)/"}>
               <View className="w-[36px] h-[36px] rounded-full items-center justify-center bg-[#524CE0]">
@@ -132,7 +151,7 @@ const index = () => {
               </View>
             </Link>
             {/**notification */}
-            <Link href={"/(tabs)/"}>
+            {/* <Link href={"/(tabs)/"}>
               <View className="w-[36px] h-[36px] rounded-full items-center justify-center bg-[#524CE0]">
                 <Ionicons
                   name="notifications-outline"
@@ -140,38 +159,48 @@ const index = () => {
                   color="white"
                 />
               </View>
-            </Link>
+            </Link> */}
           </View>
         </View>
       </View>
-      <ScrollView className="flex-1  ">
-        {/**event types */}
-        <View className="flex-row w-full pl-4 pr-1 space-x-2">
-          <GestureScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View className="space-x-4 flex-row mt-4">
 
-            {eventtypes.map((value, index)=>(
-                <TouchableOpacity key={index}
-                style={{backgroundColor:value.color}}
-                className={`w-32 h-12 rounded-xl items-center justify-center flex-row space-x-2`}>
-                {value.name==="Food"?<MaterialCommunityIcons name="food-turkey" size={24} color="white" />:(
-                    value.name==="Music"?<FontAwesome5 name="music" size={24} color="white" />:(
-                        value.name==="Sport"?<MaterialIcons name="sports-soccer" size={24} color="white" />:(
-                            value.name==="charity"?<MaterialCommunityIcons name="charity" size={24} color="white" />:(
-                                value.name==="conference"?<MaterialIcons name="people-alt" size={24} color="white" />:null
-                            )
-                        )
-                    )
-                )}
+      {/**event types */}
+      <View className="flex-row w-full  pr-1 absolute top-[154px] justify-center space-x-2">
+        <GestureScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View className="space-x-4 flex-row ">
+            {eventtypes.map((value, index) => (
+              <TouchableOpacity
+                key={index}
+                style={{ backgroundColor: value.color }}
+                className={`w-32 h-12 rounded-full items-center justify-center flex-row space-x-2`}
+              >
+                {value.name === "Food" ? (
+                  <MaterialCommunityIcons
+                    name="food-turkey"
+                    size={24}
+                    color="white"
+                  />
+                ) : value.name === "Music" ? (
+                  <FontAwesome5 name="music" size={24} color="white" />
+                ) : value.name === "Sport" ? (
+                  <MaterialIcons name="sports-soccer" size={24} color="white" />
+                ) : value.name === "charity" ? (
+                  <MaterialCommunityIcons
+                    name="charity"
+                    size={24}
+                    color="white"
+                  />
+                ) : value.name === "conference" ? (
+                  <MaterialIcons name="people-alt" size={24} color="white" />
+                ) : null}
 
-                <Text className="text-white">
-                    {value.name}
-                </Text>
-                </TouchableOpacity>
+                <Text className="text-white">{value.name}</Text>
+              </TouchableOpacity>
             ))}
-            </View>
-          </GestureScrollView>
-        </View>
+          </View>
+        </GestureScrollView>
+      </View>
+      <ScrollView className="flex-1 mt-10 ">
         {/**upcoming events */}
         <View
           className="w-full h-[300px] 
@@ -193,11 +222,11 @@ const index = () => {
 
           {/**upcoming event */}
           <GestureScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View className="space-x-4 flex-row mt-4">
+            <View className="space-x-4 flex-row mt-4  ">
               {card.map((value, index) => (
                 <TouchableOpacity
                   key={index}
-                  className="w-[237px] h-[240px] border-[0.2px] shadow-sm bg-white border-gray-300 rounded-[16px] items-center pt-3 "
+                  className="w-[237px] h-[240px]  border-[0.2px] shadow-sm bg-white  border-gray-300 rounded-[16px] items-center pt-3 "
                 >
                   <ImageBackground
                     source={value.image}
@@ -248,8 +277,8 @@ const index = () => {
           </GestureScrollView>
         </View>
 
-        <View className="w-full h-40 items-center justify-center">
-          <View className="w-11/12 bg-teal-200 rounded-lg border-[0.2px] border-gray-400 flex-row shadow-lg items-center justify-center">
+        <View className="w-full h-40 items-center justify-center ">
+          <View className="w-11/12 h-32 bg-teal-200 rounded-lg border-[0.2px] border-gray-400 flex-row shadow-lg items-center justify-center ">
             {/**promo */}
             <View className="space-y-2">
               <Text className="text-[18px] font-medium">
@@ -267,7 +296,7 @@ const index = () => {
             <View>
               <Image
                 source={require("../../../assets/images/gift.png")}
-                className="w-52 h-40 "
+                className="w-40 h-20 "
               />
             </View>
           </View>
@@ -288,6 +317,14 @@ const index = () => {
               </Link>
             </View>
           </View>
+
+          {/* <TouchableOpacity
+            onPress={() => {
+              logout();
+            }}
+          >
+            <Text className="text-xl">Logout</Text>
+          </TouchableOpacity> */}
           <GestureScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View className="space-x-4 flex-row mt-4">
               {card.map((value, index) => (
