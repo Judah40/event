@@ -8,5 +8,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "app/(app)/tabs/patient/_layout.js", "app/(app)/tabs/patient/index.js", "app/(app)/two.js", "app/_layout.js", "useContext.js", "app/(tabs)/events/eventDetails/index.js", "app/(tabs)/events/exploreEvents/index.js", "app/(tabs)/events/exploreEvents/_layout.js", "app/(tabs)/events/eventDetails/_layout.js", "app/(tabs)/explore/index.js", "app/(tabs)/explore/_layout.js", "app/(tabs)/map/index.js", "app/(tabs)/map/_layout.js", "app/(tabs)/_layout.js", "app/(tabs)/index.js", "app/(tabs)/profile/index.js", "app/(tabs)/profile/_layout.js", "app/(tabs)/events/index.js", "app/(tabs)/events/_layout.js"  ]
+, "app/(app)/tabs/patient/_layout.js", "app/(app)/tabs/patient/index.js", "app/(app)/two.js", "app/_layout.js", "useContext.js", "app/(tabs)/events/eventDetails/index.js", "app/(tabs)/events/exploreEvents/index.js", "app/(tabs)/events/exploreEvents/_layout.js", "app/(tabs)/events/eventDetails/_layout.js", "app/(tabs)/explore/index.js", "app/(tabs)/explore/_layout.js", "app/(tabs)/map/index.js", "app/(tabs)/map/_layout.js", "app/(tabs)/_layout.js", "app/(tabs)/index.js", "app/(tabs)/profile/index.js", "app/(tabs)/profile/_layout.js", "app/(tabs)/events/index.js", "app/(tabs)/events/_layout.js", "app/(auth)/sign-in.js", "app/(auth)/sign-up.js", "app/(auth)/_layout.js"  ]
 }
