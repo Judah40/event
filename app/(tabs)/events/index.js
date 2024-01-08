@@ -12,9 +12,9 @@ const index = () => {
 
   const navigation = useNavigation()
   return (
-    <View className="flex-1">
+    <View className="flex-1 ">
       {/**event selection */}
-      <View className="w-full   items-center h-1/6 justify-end">
+      <View className="w-full items-center h-1/6 justify-end">
         {/**inner container */}
         <View className="w-11/12 h-12 bg-[#979795] rounded-full items-center justify-between p-1 flex-row">
           {/**upcoming events */}
@@ -75,7 +75,7 @@ const index = () => {
         <View className="flex-1 bg-red-500 p-2"></View>
       ) : null}
       {/**explore event botton*/}
-      <View className="justify-center pt-32 items-center flex-1">
+      <View className="justify-center items-center h-[15%]">
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("exploreEvents");
