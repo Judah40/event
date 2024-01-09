@@ -26,6 +26,8 @@ const organizerProfile = () => {
         </TouchableOpacity>
         {/**header */}
       </View>
+
+      {/* profile picture */}
       <View className="items-center">
         <View className="space-y-6 items-center">
           <View className="">
@@ -41,12 +43,37 @@ const organizerProfile = () => {
           </View>
         </View>
       </View>
-      <View className="items-center mt-6">
-        <TouchableOpacity className="flex-row items-center justify-center rounded-[10px] space-x-4 h-[50px] w-[154px] border-2 border-[#5669FF]">
-          <Feather name="message-circle" size={24} color="#5669FF" />
-          <Text className="text-[#5669FF]">Message</Text>
-        </TouchableOpacity>
-      </View>
+
+      {select === "about" ? (
+        <View className="items-center mt-6">
+          <TouchableOpacity className="flex-row items-center justify-center rounded-[10px] space-x-4 h-[50px] w-[154px] border-2 border-[#5669FF]">
+            <Feather name="message-circle" size={24} color="#5669FF" />
+            <Text className="text-[#5669FF]">Message</Text>
+          </TouchableOpacity>
+        </View>
+      ) : select === "event" ? (
+        <View className="items-center mt-6">
+          <TouchableOpacity className="flex-row items-center justify-center rounded-[10px] space-x-4 h-[50px] w-[154px] border-2 border-[#5669FF]">
+            <Feather name="message-circle" size={24} color="#5669FF" />
+            <Text className="text-[#5669FF]">Message</Text>
+          </TouchableOpacity>
+        </View>
+      ) : select === "reviews" ? (
+        <View className="flex-row justify-evenly">
+          <View className="items-center mt-6">
+            <TouchableOpacity className="flex-row bg-[#5669FF] items-center justify-center rounded-[10px] space-x-4 h-[50px] w-[154px] border-2 border-[#5669FF]">
+              <Feather name="message-circle" size={24} color="white" />
+              <Text className="text-white">Comment</Text>
+            </TouchableOpacity>
+          </View>
+          <View className="items-center mt-6">
+            <TouchableOpacity className="flex-row items-center justify-center rounded-[10px] space-x-4 h-[50px] w-[154px] border-2 border-[#5669FF]">
+              <Feather name="message-circle" size={24} color="#5669FF" />
+              <Text className="text-[#5669FF]">Message</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : null}
       <View className="flex-row justify-evenly space-x-9 pt-5">
         {/* about btn */}
         {select === "about" ? (

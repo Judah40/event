@@ -5,7 +5,10 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  Modal,
   Platform,
+  TextInput,
+  Share
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -15,26 +18,54 @@ import { ScrollView as GestureScrollView } from "react-native-gesture-handler";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Link } from "expo-router";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Link, useLocalSearchParams } from "expo-router";
+import SearchData from "../../../components/searchData"
 
 import { useAuth, user } from "../../../context";
 import { getEvents } from "../../apiCalls/dataFetching";
 
 const index = () => {
-
-
   //auth
-  const {login, logout, user}=useAuth()
+  const { login, logout, user } = useAuth();
+  const [visible, setVisible] = useState(false)
   const [bookmark, setBookmark] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: "Apple", value: "apple" },
-    { label: "Banana", value: "banana" },
-    { label: "Pear", value: "pear" },
+    { label: "Freetown", value: "freetown" },
+    { label: "Bo", value: "bo" },
+    { label: "Makeni", value: "makeni" },
   ]);
+
+  // share logic
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: "Check out this amazing result!",
+        // You can add more details to be shared here
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+
+  const params = useLocalSearchParams()
+
+  const {} = params
 
   //card
   const card = [
@@ -95,22 +126,19 @@ const index = () => {
     },
   ];
 
-
-
-  useEffect(()=>{
+  useEffect(() => {
     getEvents().then((value) => {
-      console.log(value.data[1])
-    })
-  }, [])
-
+      console.log(value.data[1]);
+    });
+  }, []);
 
   return (
     <View className="flex-1 bg-gray-50">
       {/*header*/}
       <View className="w-full h-[179px] bg-[#4A43EC] rounded-b-3xl  items-center justify-center pt-4">
         {/**section 1 */}
-        <View className="flex-row items-center w-full justify-end  pr-4">
-          <View className=" ">
+        <View className="flex-row items-center justify-center -mt-12 w-[90%]">
+          <View className="items-center justify-center">
             <DropDownPicker
               open={open}
               value={value}
@@ -118,7 +146,7 @@ const index = () => {
               setOpen={setOpen}
               setValue={setValue}
               setItems={setItems}
-              placeholder={"Choose a fruit."}
+              placeholder={"Current Location"}
               ArrowUpIconComponent={() => (
                 <EvilIcons name="chevron-up" size={24} color="white" />
               )}
@@ -128,11 +156,17 @@ const index = () => {
               placeholderStyle={{ color: "white" }}
               containerStyle={{ backgroundColor: "transparent", width: 200 }}
               style={{
-                width: 150,
+                width: 160,
                 backgroundColor: "transparent",
                 borderWidth: 0,
+                marginLeft: 30,
+                marginBottom: -20,
               }}
-              dropDownContainerStyle={{ width: 150, borderWidth: 0.2 }}
+              dropDownContainerStyle={{
+                width: 150,
+                borderWidth: 0.2,
+                marginLeft: 30,
+              }}
               arrowIconStyle={{}}
             />
 
@@ -143,23 +177,35 @@ const index = () => {
           </View>
 
           {/**call to action */}
-          <View className="">
-            {/**search */}
-            <Link href={"/(tabs)/"}>
-              <View className="w-[36px] h-[36px] rounded-full items-center justify-center bg-[#524CE0]">
-                <Ionicons name="search-outline" size={24} color="white" />
-              </View>
-            </Link>
-            {/**notification */}
-            {/* <Link href={"/(tabs)/"}>
-              <View className="w-[36px] h-[36px] rounded-full items-center justify-center bg-[#524CE0]">
-                <Ionicons
-                  name="notifications-outline"
-                  size={24}
-                  color="white"
-                />
-              </View>
-            </Link> */}
+        </View>
+        <View className="flex-row justify-center mt-5 items-center w-[90%]">
+          {/**search */}
+
+          <View className="w-[36px] h-[36px] rounded-full items-center justify-center ">
+            <Ionicons name="search-outline" size={24} color="white" />
+          </View>
+
+          <View className="flex-1 border-l border-gray-500">
+            <TouchableOpacity
+              onPress={() => {
+                setVisible(!visible);
+              }}
+              className="ml-2"
+            >
+              <Text className="text-gray-500 text-lg">Search...</Text>
+              <Modal
+                animationType="slide"
+                presentationStyle="formSheet"
+                // transparent={true}
+                visible={visible}
+                onRequestClose={() => {
+                  setVisible(!visible);
+                  // console.log("closed");
+                }}
+              >
+                <SearchData />
+              </Modal>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -211,7 +257,7 @@ const index = () => {
 
             {/**see all */}
             <View className="flex-1  items-end h-6 justify-center ">
-              <Link href={"/(tabs)/"}>
+              <Link href={"/(tabs)/events"}>
                 <View className="flex-row items-center  ">
                   <Text className="text-[14px] text-gray-500">See All</Text>
                   <Entypo name="triangle-right" size={24} color="gray" />
@@ -287,7 +333,9 @@ const index = () => {
               <Text className="text-[13px] font-light">
                 Get Le200 for ticket
               </Text>
-              <TouchableOpacity className="w-[72px] h-[32px] items-center justify-center bg-[#00F8FF] border-[0.2px] border-gray-400">
+              <TouchableOpacity
+                onPress={onShare}
+                className="w-[72px] h-[32px] items-center justify-center bg-[#00F8FF] border-[0.2px] border-gray-400">
                 <Text>INVITE</Text>
               </TouchableOpacity>
             </View>
