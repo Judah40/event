@@ -7,6 +7,7 @@ import {
   ScrollView,
   SafeAreaView,
   FlatList,
+  Share
 } from "react-native";
 import React from "react";
 import { useLocalSearchParams, useNavigation, router } from "expo-router";
@@ -16,6 +17,7 @@ const index = () => {
   const navigation = useNavigation();
   const params = useLocalSearchParams();
   const {
+    price,
     date,
     description,
     location,
@@ -30,6 +32,27 @@ const index = () => {
   const pic = require("../../../../assets/images/sol.jpg");
   const pic2 = require("../../../../assets/images/pp1.jpeg");
   const pic3 = require("../../../../assets/images/pp4.jpg");
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: " https://www.facebook.com \n Check out this amazing result!",
+        // You can add more details to be shared here
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
 
   return (
@@ -66,7 +89,7 @@ const index = () => {
             <View className=" ml-11">
               <Text className="text-[#3f38dd]">{attending}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onShare}>
               <View className="w-[67px] h-[28px] rounded-[7px] items-center justify-center ml-14 bg-[#3f38dd]">
                 <Text className="text-white">Invite</Text>
               </View>
@@ -118,6 +141,7 @@ const index = () => {
                   params: {
                     organizerPhoto,
                     organizer,
+                    price,
                   }
                 })
               }}>
@@ -188,13 +212,20 @@ const index = () => {
       <View className="justify-center items-center h-[12%]">
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("");
+            router.push({
+              pathname: "/events/eventDetails/buyTickets",
+              params: {
+                description,
+                price,
+              },
+            });
+            navigation.navigate("buyTickets");
           }}
           className="bg-[#5669FF] h-[60px] flex-row w-[275px] rounded-[13px] justify-center items-center"
         >
           <View className="w-[220px]">
             <Text className="text-white text-center ml-7 font-bold">
-              BUY TICKET NLE200
+              BUY TICKET NLE{price}
             </Text>
           </View>
           <View className="h-[32px] w-[32px] justify-center items-center rounded-full bg-[#3D56f0]">

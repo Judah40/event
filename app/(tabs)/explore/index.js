@@ -20,7 +20,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams, router } from "expo-router";
 import SearchData from "../../../components/searchData"
 
 import { useAuth, user } from "../../../context";
@@ -44,7 +44,7 @@ const index = () => {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: "Check out this amazing result!",
+        message: " https://www.facebook.com \n Check out this amazing result!",
         // You can add more details to be shared here
       });
 
@@ -135,9 +135,9 @@ const index = () => {
   return (
     <View className="flex-1 bg-gray-50">
       {/*header*/}
-      <View className="w-full h-[179px] bg-[#4A43EC] rounded-b-3xl  items-center justify-center pt-4">
+      <View className="w-full h-[179px] bg-[#4A43EC] rounded-b-[30px]  items-center justify-center pt-4">
         {/**section 1 */}
-        <View className="flex-row items-center justify-center -mt-12 w-[90%]">
+        <View className="flex-row items-center justify-center  -mt-10 w-[90%]">
           <View className="items-center justify-center">
             <DropDownPicker
               open={open}
@@ -176,7 +176,16 @@ const index = () => {
             </Text>
           </View>
 
-          {/**call to action */}
+          <View className="flex-1">
+            <TouchableOpacity
+              className="bg-red-500"
+              onPress={() => {
+                router.push("/(tabs)/explore/notification");
+              }}
+            >
+              <Ionicons name="notifications" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
         </View>
         <View className="flex-row justify-center mt-5 items-center w-[90%]">
           {/**search */}
@@ -331,11 +340,12 @@ const index = () => {
                 Invite your Friends
               </Text>
               <Text className="text-[13px] font-light">
-                Get Le200 for ticket
+                Get Le100 for ticket
               </Text>
               <TouchableOpacity
                 onPress={onShare}
-                className="w-[72px] h-[32px] items-center justify-center bg-[#00F8FF] border-[0.2px] border-gray-400">
+                className="w-[72px] h-[32px] items-center justify-center bg-[#00F8FF] border-[0.2px] border-gray-400"
+              >
                 <Text>INVITE</Text>
               </TouchableOpacity>
             </View>
